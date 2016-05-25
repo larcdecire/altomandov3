@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 echo "OPENSHIFT_MONGODB_DB_HOST=$OPENSHIFT_GEAR_DNS"
