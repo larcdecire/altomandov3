@@ -8,7 +8,7 @@ Website: http://www.mongodb.org/
 Display-Name: MongoDB 3.2.6
 Cartridge-Short-Name: MONGODB
 Cartridge-Version: '2.0.4'
-Cartridge-Vendor: icflorescu
+Cartridge-Vendor: lbarreraabarca
 Source-Url: https://github.com/lbarreraabarca/altomandov3.git
 Categories:
 - service
