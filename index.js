@@ -14,13 +14,14 @@ var app;
 options = {
     onconfig: function (config, next) {
 
-        var databaseConfig = config.get('databaseConfig');
-        console.log('MongoDb URL:' +  databaseConfig.mongoDbUrl);
-        console.log('MongoDb dbName:' +  databaseConfig.dbName);
+        //var databaseConfig = config.get('databaseConfig');
+        //console.log('MongoDb URL:' +  databaseConfig.mongoDbUrl);
+        //console.log('MongoDb dbName:' +  databaseConfig.dbName);
 
-        var dbConnectionString = databaseConfig.mongoDbUrl + databaseConfig.dbName;
-
-        mongoose.connect(dbConnectionString);
+        //var dbConnectionString = databaseConfig.mongoDbUrl + databaseConfig.dbName;
+        
+        mongoose.connect(process.env.MONGODB_URL + 'database_name', { db: { nativeParser: true } });
+        //mongoose.connect(dbConnectionString);
 
         var database = mongoose.connection;
 
