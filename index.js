@@ -7,35 +7,13 @@ var mongoose = require('mongoose');
 var options;
 var app;
 
-/*
- * Create and configure application. Also exports application instance for use by tests.
- * See https://github.com/krakenjs/kraken-js#options for additional configuration options.
- */
 options = {
-    onconfig: function (config, next) {
+  user: process.env.OPENSHIFT_MONGODB_DB_USERNAME,
+  pass: process.env.OPENSHIFT_MONGODB_DB_PASSWORD
+}
+// Connection to DB
+mongoose.connect('mongodb://'+process.env.OPENSHIFT_MONGODB_DB_HOST+':'+process.env.OPENSHIFT_MONGODB_DB_PORT+'/'+'altomandov3',options);
 
-        //var databaseConfig = config.get('databaseConfig');
-        //console.log('MongoDb URL:' +  databaseConfig.mongoDbUrl);
-        //console.log('MongoDb dbName:' +  databaseConfig.dbName);
-
-        //var dbConnectionString = databaseConfig.mongoDbUrl + databaseConfig.dbName;
-        
-        mongoose.connect(process.env.MONGODB_URL + 'database_name', { db: { nativeParser: true } });
-        //mongoose.connect(dbConnectionString);
-
-        var database = mongoose.connection;
-
-        database.on('error', function (error) {
-            console.error(error);
-        });
-
-        database.once('open', function callback() {
-            console.log('db connection open');
-        });
-
-        next(null, config);
-    }
-};
 
 app = module.exports = express();
 app.use(kraken(options));
