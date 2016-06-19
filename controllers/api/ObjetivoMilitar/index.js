@@ -1,6 +1,6 @@
 'use strict';
 
-var PersonModel = require('../../../models/person');
+var PersonModel = require('../../../models/objetivoMilitar');
 
 module.exports = function (router) {
 
