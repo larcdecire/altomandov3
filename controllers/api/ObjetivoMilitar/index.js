@@ -1,6 +1,9 @@
 'use strict';
 
-var PersonModel = require('../../../models/objetivoMilitar');
+var jwtGenerator = require('../../../lib/jwt-generator');
+var auth = require('../../../lib/auth');
+var UserModel = require('../../../models/user');
+var ObjMilitarModel = require('../../../models/objetivoMilitar');
 
 module.exports = function (router) {
 
@@ -8,7 +11,7 @@ module.exports = function (router) {
 
         var objId = req.params.id;
 
-        PersonModel.findOne({_id: objId})
+        ObjMilitarModel.findOne({_id: objId})
         .populate('user')
         .exec(function (err, person) {
             if (err) {
@@ -24,7 +27,7 @@ module.exports = function (router) {
 
     router.get('/', function (req, res) {
 
-        PersonModel.find()
+        ObjMilitarModel.find()
         .populate('user')
         .exec(function (err, person) {
             if (err) {
@@ -38,11 +41,11 @@ module.exports = function (router) {
 
     });
 
-    router.post('/', function (req, res) {
+    router.post('/', auth.isAuthenticated(), function (req, res, next) {
 
         var data = req.body;
 
-        var newObj = new PersonModel(data);
+        var newObj = new ObjMilitarModel(data);
 
         newObj.save(function (err, personCreated) {
             if (err) {
@@ -58,7 +61,7 @@ module.exports = function (router) {
         var data = req.body;
         var objId = req.params.id;
 
-        PersonModel.findOne({_id: objId}, function (err, objToUpdate) {
+        ObjMilitarModel.findOne({_id: objId}, function (err, objToUpdate) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
@@ -78,7 +81,7 @@ module.exports = function (router) {
 
         var objId = req.params.id;
 
-        PersonModel.remove({_id: objId}, function (err) {
+        ObjMilitarModel.remove({_id: objId}, function (err) {
             if (err) {
                 res.status(500).json({error: err}).end();
             }
