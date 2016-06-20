@@ -6,7 +6,7 @@ var UserModel = require('../../../../models/userclase13');
 module.exports = function (router) {
     
     //utiliza cualquier tipo de solicitud GET/POST/PUT/DELETE
-    router.use('/:token', auth.isAuthenticated(), function (req, res, next) {
+    router.post('/', auth.isAuthenticated(), function (req, res, next) {
         next();
     });
 
