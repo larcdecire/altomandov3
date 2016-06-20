@@ -11,8 +11,10 @@ module.exports = function (router) {
     });
 
     router.get('/', function (req, res) {
-
-        return res.status(200).json({result: 'Todo OK!'}).end();
+        
+        
+        var vtoken = req.headers['x-access-token'];
+        return res.status(200).json({result: 'Todo OK!', token: vtoken}).end();
 
     });
 };
