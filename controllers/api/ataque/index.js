@@ -94,10 +94,9 @@ module.exports = function (router) {
 
     function mapPersonDataToUpdate(ataqueToUpdate, data) {
 
-        ataqueToUpdate.name = data.name || ataqueToUpdate.name;
-        ataqueToUpdate.lastName = data.lastName || ataqueToUpdate.lastName;
-        ataqueToUpdate.day = data.day || ataqueToUpdate.day;
-        ataqueToUpdate.desc = data.desc || ataqueToUpdate.desc;
+        ataqueToUpdate.codigo_escuadron = data.codigo_escuadron || ataqueToUpdate.codigo_escuadron;
+        ataqueToUpdate.p_exito = data.p_exito || ataqueToUpdate.p_exito;
+        ataqueToUpdate.cod_objMilitar = data.cod_objMilitar || ataqueToUpdate.cod_objMilitar;
 
         return ataqueToUpdate;
 
