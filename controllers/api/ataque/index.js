@@ -4,7 +4,7 @@ var jwtGenerator = require('../../../lib/jwt-generator');
 var auth = require('../../../lib/auth');
 var UserModel = require('../../../models/user');
 
-var AtaqueModel = require('../../../models/ataque');
+var atacaModel = require('../../../models/ataque');
 
 module.exports = function (router) {
 
@@ -12,7 +12,7 @@ module.exports = function (router) {
 
         var ataqueId = req.params.id;
 
-        AtaqueModel.findOne({_id: ataqueId})
+        atacaModel.findOne({_id: ataqueId})
         .populate('user')
         .exec(function (err, person) {
             if (err) {
@@ -28,7 +28,7 @@ module.exports = function (router) {
 
     router.get('/', auth.isAuthenticated(), function (req, res, next) {
 
-        AtaqueModel.find()
+        atacaModel.find()
         .populate('user')
         .exec(function (err, person) {
             if (err) {
@@ -46,7 +46,7 @@ module.exports = function (router) {
 
         var data = req.body;
 
-        var newAtaque = new AtaqueModel(data);
+        var newAtaque = new atacaModel(data);
 
         newAtaque.save(function (err, personCreated) {
             if (err) {
@@ -62,7 +62,7 @@ module.exports = function (router) {
         var data = req.body;
         var ataqueId = req.params.id;
 
-        AtaqueModel.findOne({_id: ataqueId}, function (err, ataqueToUpdate) {
+        atacaModel.findOne({_id: ataqueId}, function (err, ataqueToUpdate) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
@@ -82,7 +82,7 @@ module.exports = function (router) {
 
         var ataqueId = req.params.id;
 
-        AtaqueModel.remove({_id: ataqueId}, function (err) {
+        atacaModel.remove({_id: ataqueId}, function (err) {
             if (err) {
                 res.status(500).json({error: err}).end();
             }
