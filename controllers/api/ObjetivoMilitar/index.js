@@ -93,11 +93,12 @@ module.exports = function (router) {
 
     function mapPersonDataToUpdate(objToUpdate, data) {
 
-        objToUpdate.name = data.name || objToUpdate.name;
-        objToUpdate.lastName = data.lastName || objToUpdate.lastName;
-        objToUpdate.day = data.day || objToUpdate.day;
-        objToUpdate.desc = data.desc || objToUpdate.desc;
-
+        objToUpdate.codigo = data.codigo || objToUpdate.codigo;
+        objToUpdate.nombre = data.nombre || objToUpdate.nombre;
+        objToUpdate.latitud = data.latitud || objToUpdate.latitud;
+        objToUpdate.longitud = data.longitud || objToUpdate.longitud;
+        objToUpdate.prioridad = data.prioridad || objToUpdate.prioridad;
+        
         return objToUpdate;
 
     };
