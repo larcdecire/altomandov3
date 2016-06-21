@@ -1,14 +1,18 @@
 'use strict';
 
-var PersonModel = require('../../../models/person');
+var jwtGenerator = require('../../../lib/jwt-generator');
+var auth = require('../../../lib/auth');
+var UserModel = require('../../../models/user');
+
+var AtaqueModel = require('../../../models/ataque');
 
 module.exports = function (router) {
 
-    router.get('/:id', function (req, res) {
+    router.get('/:id', auth.isAuthenticated(), function (req, res, next) {
 
         var ataqueId = req.params.id;
 
-        PersonModel.findOne({_id: ataqueId})
+        AtaqueModel.findOne({_id: ataqueId})
         .populate('user')
         .exec(function (err, person) {
             if (err) {
@@ -22,9 +26,9 @@ module.exports = function (router) {
 
     });
 
-    router.get('/', function (req, res) {
+    router.get('/', auth.isAuthenticated(), function (req, res, next) {
 
-        PersonModel.find()
+        AtaqueModel.find()
         .populate('user')
         .exec(function (err, person) {
             if (err) {
@@ -38,11 +42,11 @@ module.exports = function (router) {
 
     });
 
-    router.post('/', function (req, res) {
+    router.post('/', auth.isAuthenticated(), function (req, res, next) {
 
         var data = req.body;
 
-        var newAtaque = new PersonModel(data);
+        var newAtaque = new AtaqueModel(data);
 
         newAtaque.save(function (err, personCreated) {
             if (err) {
@@ -53,12 +57,12 @@ module.exports = function (router) {
 
     });
 
-    router.put('/:id', function (req, res) {
+    router.put('/:id', auth.isAuthenticated(), function (req, res, next) {
 
         var data = req.body;
         var ataqueId = req.params.id;
 
-        PersonModel.findOne({_id: ataqueId}, function (err, ataqueToUpdate) {
+        AtaqueModel.findOne({_id: ataqueId}, function (err, ataqueToUpdate) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
@@ -74,11 +78,11 @@ module.exports = function (router) {
 
     });
 
-    router.delete('/:id', function (req, res) {
+    router.delete('/:id', auth.isAuthenticated(), function (req, res, next) {
 
         var ataqueId = req.params.id;
 
-        PersonModel.remove({_id: ataqueId}, function (err) {
+        AtaqueModel.remove({_id: ataqueId}, function (err) {
             if (err) {
                 res.status(500).json({error: err}).end();
             }
@@ -100,3 +104,4 @@ module.exports = function (router) {
     };
 
 };
+
