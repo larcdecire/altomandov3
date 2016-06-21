@@ -7,7 +7,7 @@ var ObjMilitarModel = require('../../../models/objetivoMilitar');
 
 module.exports = function (router) {
 
-    router.get('/:id', function (req, res) {
+    router.get('/:id', auth.isAuthenticated(), function (req, res, next) {
 
         var objId = req.params.id;
 
@@ -25,7 +25,7 @@ module.exports = function (router) {
 
     });
 
-    router.get('/', function (req, res) {
+    router.get('/', auth.isAuthenticated(), function (req, res, next) {
 
         ObjMilitarModel.find()
         .populate('user')
@@ -56,7 +56,7 @@ module.exports = function (router) {
 
     });
 
-    router.put('/:id', function (req, res) {
+    router.put('/:id', auth.isAuthenticated(), function (req, res, next) {
 
         var data = req.body;
         var objId = req.params.id;
@@ -77,7 +77,7 @@ module.exports = function (router) {
 
     });
 
-    router.delete('/:id', function (req, res) {
+    router.delete('/:id', auth.isAuthenticated(), function (req, res, next) {
 
         var objId = req.params.id;
 
