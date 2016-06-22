@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 var jwtGenerator = require('../../../lib/jwt-generator');
 var auth = require('../../../lib/auth');
@@ -104,3 +104,4 @@ module.exports = function (router) {
 
 };
 
+*/
