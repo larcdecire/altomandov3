@@ -50,7 +50,7 @@ module.exports = function (router) {
                 return res.status(500).json({error: err}).end();
             }
             res.status(201).json(userCreated).end();
-        });
+            });
             
         });
 
