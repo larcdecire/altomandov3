@@ -1,8 +1,7 @@
-/*'use strict';
+'use strict';
 
 var jwtGenerator = require('../../../lib/jwt-generator');
 var auth = require('../../../lib/auth');
-var UserModel = require('../../../models/user');
 
 var atacaModel = require('../../../models/ataque');
 
@@ -103,5 +102,3 @@ module.exports = function (router) {
     };
 
 };
-
-*/
