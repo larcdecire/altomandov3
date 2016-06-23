@@ -29,12 +29,13 @@ module.exports = function (router) {
 
             var dataForPayload = {
                 username: username,
-                role: user.role
+                nombre: user.nombre,
+                apellido: user.apellido
             };
 
             var token = jwtGenerator.generateToken(dataForPayload);
             
-            return res.status(201).json({token: token, nombre: user.nombre, apellido: user.apellido, user.nivelMilitar: nivelMilitar, edad: user.edad, habilitado: user.habilitado}).end();
+            return res.status(201).json({token: token, dataForPayload}).end();
 
         });
 
