@@ -37,7 +37,7 @@ module.exports = function (router) {
 
         var data = req.body;
         
-        var IdObjMilitar = data.cod_objMilitar;
+        /*var IdObjMilitar = data.cod_objMilitar;
         ObjMilitarModel.findOne({codigo: IdObjMilitar}, function (err) {
             if (err) {
                 return res.status(500).json({error: err}).end();
@@ -52,7 +52,7 @@ module.exports = function (router) {
             res.status(201).json(userCreated).end();
             });
             
-        });
+        });*/
 
         
 
