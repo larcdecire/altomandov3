@@ -1,14 +1,15 @@
 'use strict';
 
-var UserModel = require('../../../models/ataque');
+var ataqueModel = require('../../../models/ataque');
+var auth = require('../../../lib/auth');
 
 module.exports = function (router) {
 
-    router.get('/:id', function (req, res) {
+    router.get('/:id', auth.isAuthenticated(), function (req, res) {
 
-        var userId = req.params.id;
+        var ataqueId = req.params.id;
 
-        UserModel.find({_id: userId}, function (err, user) {
+        ataqueModel.find({_id: ataqueId}, function (err, user) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
@@ -20,9 +21,9 @@ module.exports = function (router) {
 
     });
 
-    router.get('/', function (req, res) {
+    router.get('/', auth.isAuthenticated(), function (req, res) {
 
-        UserModel.find({}, function (err, users) {
+        ataqueModel.find({}, function (err, users) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
@@ -31,13 +32,13 @@ module.exports = function (router) {
 
     });
 
-    router.post('/', function (req, res) {
+    router.post('/', auth.isAuthenticated(), function (req, res) {
 
         var data = req.body;
 
-        var newUser = new UserModel(data);
+        var newAtaque = new ataqueModel(data);
 
-        newUser.save(function (err, userCreated) {
+        newAtaque.save(function (err, userCreated) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
@@ -46,18 +47,18 @@ module.exports = function (router) {
 
     });
 
-    router.put('/:id', function (req, res) {
+    router.put('/:id', auth.isAuthenticated(), function (req, res) {
 
         var data = req.body;
-        var userId = req.params.id;
+        var ataqueId = req.params.id;
 
-        UserModel.findOne({_id: userId}, function (err, userToUpdate) {
+        ataqueModel.findOne({_id: ataqueId}, function (err, ataqueToUpdate) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
 
-            mapUserDataToUpdate(userToUpdate, data);
-            userToUpdate.save(function (err, userCreated) {
+            mapUserDataToUpdate(ataqueToUpdate, data);
+            ataqueToUpdate.save(function (err, userCreated) {
                 if (err) {
                     return res.status(500).json({error: err}).end();
                 }
@@ -69,9 +70,9 @@ module.exports = function (router) {
 
     router.delete('/:id', function (req, res) {
 
-        var userId = req.params.id;
+        var ataqueId = req.params.id;
 
-        UserModel.remove({_id: userId}, function (err) {
+        ataqueModel.remove({_id: ataqueId}, function (err) {
             if (err) {
                 res.status(500).json({error: err}).end();
             }
@@ -81,15 +82,15 @@ module.exports = function (router) {
 
     });
 
-    function mapUserDataToUpdate(userToUpdate, data) {
+    function mapUserDataToUpdate(ataqueToUpdate, data) {
 
-        userToUpdate.nombre = data.nombre || userToUpdate.nombre;
-        userToUpdate.apellido = data.apellido || userToUpdate.apellido;
-        userToUpdate.nivelMilitar = data.nivelMilitar || userToUpdate.nivelMilitar;
-        userToUpdate.edad = data.edad || userToUpdate.edad;
-        userToUpdate.habilitado = data.habilitado || userToUpdate.habilitado;
+        ataqueToUpdate.nombre = data.nombre || ataqueToUpdate.nombre;
+        ataqueToUpdate.apellido = data.apellido || ataqueToUpdate.apellido;
+        ataqueToUpdate.nivelMilitar = data.nivelMilitar || ataqueToUpdate.nivelMilitar;
+        ataqueToUpdate.edad = data.edad || ataqueToUpdate.edad;
+        ataqueToUpdate.habilitado = data.habilitado || ataqueToUpdate.habilitado;
 
-        return userToUpdate;
+        return ataqueToUpdate;
 
     };
 
