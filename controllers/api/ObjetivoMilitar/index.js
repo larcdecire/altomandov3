@@ -7,7 +7,7 @@ var ObjMilitarModel = require('../../../models/objetivoMilitar');
 
 module.exports = function (router) {
 
-    router.get('/:id', auth.isAuthenticated(),,function (req, res, next) {
+    router.get('/:id', auth.isAuthenticated(),function (req, res, next) {
 
         var objId = req.params.id;
 
