@@ -1,6 +1,7 @@
 'use strict';
 
 var ataqueModel = require('../../../models/ataque');
+var ObjMilitarModel = require('../../../models/objetivoMilitar');
 var auth = require('../../../lib/auth');
 
 module.exports = function (router) {
@@ -35,15 +36,25 @@ module.exports = function (router) {
     router.post('/', auth.isAuthenticated(), function (req, res) {
 
         var data = req.body;
-
-        var newAtaque = new ataqueModel(data);
-
-        newAtaque.save(function (err, userCreated) {
+        
+        var IdObjMilitar = data.cod_objMilitar;
+        ObjMilitarModel.findOne({codigo: IdObjMilitar}, function (err) {
+            if (err) {
+                return res.status(500).json({error: err}).end();
+            }
+            
+            var newAtaque = new ataqueModel(data);
+            data.p_exito = Math.round(Math.random()*100);
+            newAtaque.save(function (err, userCreated) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
             res.status(201).json(userCreated).end();
         });
+            
+        });
+
+        
 
     });
 
