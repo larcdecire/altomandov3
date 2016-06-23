@@ -56,7 +56,7 @@ module.exports = function (router) {
 
     });
 
-    router.put('/:id',  function (req, res, next) {
+    router.put('/:id', auth.isAuthenticated(),  function (req, res, next) {
 
         var data = req.body;
         var objId = req.params.id;
