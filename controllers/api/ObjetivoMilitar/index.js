@@ -24,6 +24,25 @@ module.exports = function (router) {
         });
 
     });
+    
+    router.get('/:lat/:lon', auth.isAuthenticated(),function (req, res, next) {
+
+        var lat = req.params.lat;
+        var lon = req.params.lon;
+
+        ObjMilitarModel.findOne({latitud: lat, longitud: lon})
+        .populate('user')
+        .exec(function (err, person) {
+            if (err) {
+                return res.status(500).json({error: err}).end();
+            }
+            if (!person) {
+                return res.status(404).end();
+            }
+            res.status(200).json(person).end();
+        });
+
+    });
 
     router.get('/', auth.isAuthenticated(),  function (req, res, next) {
 
