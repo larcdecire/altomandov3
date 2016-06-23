@@ -1,87 +1,77 @@
 'use strict';
 
-var jwtGenerator = require('../../../lib/jwt-generator');
-var auth = require('../../../lib/auth');
-
-var atacaModel = require('../../../models/ataque');
+var UserModel = require('../../../models/user');
 
 module.exports = function (router) {
 
-    router.get('/:id',  function (req, res, next) {
+    router.get('/:id', function (req, res) {
 
-        var ataqueId = req.params.id;
+        var userId = req.params.id;
 
-        atacaModel.findOne({_id: ataqueId})
-        .populate('user')
-        .exec(function (err, person) {
+        UserModel.find({_id: userId}, function (err, user) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
-            if (!person) {
+            if (!user) {
                 return res.status(404).end();
             }
-            res.status(200).json(person).end();
+            res.status(200).json(user).end();
         });
 
     });
 
-    router.get('/',  function (req, res, next) {
+    router.get('/', function (req, res) {
 
-        atacaModel.find()
-        .populate('user')
-        .exec(function (err, person) {
+        UserModel.find({}, function (err, users) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
-            if (!person) {
-                return res.status(404).end();
-            }
-            res.status(200).json(person).end();
+            res.status(200).json(users).end();
         });
 
     });
 
-    router.post('/',  function (req, res, next) {
+    router.post('/', function (req, res) {
 
         var data = req.body;
 
-        var newAtaque = new atacaModel(data);
+        var newUser = new UserModel(data);
 
-        newAtaque.save(function (err, personCreated) {
+        newUser.save(function (err, userCreated) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
-            res.status(201).json(personCreated).end();
+            res.status(201).json(userCreated).end();
         });
 
     });
 
-    router.put('/:id',  function (req, res, next) {
+    router.put('/:id', function (req, res) {
 
         var data = req.body;
-        var ataqueId = req.params.id;
+        var userId = req.params.id;
 
-        atacaModel.findOne({_id: ataqueId}, function (err, ataqueToUpdate) {
+        UserModel.findOne({_id: userId}, function (err, userToUpdate) {
             if (err) {
                 return res.status(500).json({error: err}).end();
             }
 
-            mapPersonDataToUpdate(ataqueToUpdate, data);
-            ataqueToUpdate.save(function (err, ataqueToUpdate) {
+            mapUserDataToUpdate(userToUpdate, data);
+            userToUpdate.save(function (err, userCreated) {
                 if (err) {
                     return res.status(500).json({error: err}).end();
                 }
-                res.status(201).json(ataqueToUpdate).end();
+                res.status(201).json(userCreated).end();
             });
         });
 
     });
 
-    router.delete('/:id',  function (req, res, next) {
+    router.delete('/:id', function (req, res) {
 
-        var ataqueId = req.params.id;
+        var userId = req.params.id;
 
-        atacaModel.remove({_id: ataqueId}, function (err) {
+        UserModel.remove({_id: userId}, function (err) {
             if (err) {
                 res.status(500).json({error: err}).end();
             }
@@ -91,13 +81,15 @@ module.exports = function (router) {
 
     });
 
-    function mapPersonDataToUpdate(ataqueToUpdate, data) {
+    function mapUserDataToUpdate(userToUpdate, data) {
 
-        ataqueToUpdate.codigo_escuadron = data.codigo_escuadron || ataqueToUpdate.codigo_escuadron;
-        ataqueToUpdate.p_exito = data.p_exito || ataqueToUpdate.p_exito;
-        ataqueToUpdate.cod_objMilitar = data.cod_objMilitar || ataqueToUpdate.cod_objMilitar;
+        userToUpdate.nombre = data.nombre || userToUpdate.nombre;
+        userToUpdate.apellido = data.apellido || userToUpdate.apellido;
+        userToUpdate.nivelMilitar = data.nivelMilitar || userToUpdate.nivelMilitar;
+        userToUpdate.edad = data.edad || userToUpdate.edad;
+        userToUpdate.habilitado = data.habilitado || userToUpdate.habilitado;
 
-        return ataqueToUpdate;
+        return userToUpdate;
 
     };
 
