@@ -33,13 +33,8 @@ module.exports = function (router) {
             };
 
             var token = jwtGenerator.generateToken(dataForPayload);
-            var nombre = user.nombre;
-            var apellido = user.apellido;
-            var nivelMilitar = user.nivelMilitar;
-            var edad = user.edad;
-            var habilitado = user.habilitado;
             
-            return res.status(201).json({token: token, nombre: nombre, apellido: apellido, nivelMilitar: nivelMilitar, edad: edad, habilitado: habilitado}).end();
+            return res.status(201).json({token: token, nombre: user.nombre, apellido: user.apellido, user.nivelMilitar: nivelMilitar, edad: user.edad, habilitado: user.habilitado}).end();
 
         });
 
