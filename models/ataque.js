@@ -12,4 +12,4 @@ var ataqueSchema = new Schema({
 });
 
 
-module.exports = mongoose.model('obj_Militar', ataqueSchema);
+module.exports = mongoose.model('ataque', ataqueSchema);
