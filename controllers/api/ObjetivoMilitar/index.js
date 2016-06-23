@@ -2,7 +2,7 @@
 
 var jwtGenerator = require('../../../lib/jwt-generator');
 var auth = require('../../../lib/auth');
-var UserModel = require('../../../models/user');
+
 var ObjMilitarModel = require('../../../models/objetivoMilitar');
 
 module.exports = function (router) {
