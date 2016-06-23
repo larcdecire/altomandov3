@@ -35,7 +35,7 @@ module.exports = function (router) {
 
             var token = jwtGenerator.generateToken(dataForPayload);
             
-            return res.status(201).json({token: token, dataForPayload}).end();
+            return res.status(201).json({token: token}).end();
 
         });
 
