@@ -37,7 +37,7 @@ module.exports = function (router) {
 
         var data = req.body;
         
-        var codigo = data.cod_objMilitar;
+        var codigo = data.codObjMilitar;
         ObjMilitarModel.findOne({codigo: codigo}, function (err, ObjetivoToPost) {
             if (err) {
                 return res.status(500).json({error: 'error al encontrar el codigo'}).end();
@@ -50,7 +50,7 @@ module.exports = function (router) {
             
             if (ObjetivoToPost){
                 
-                data.p_exito = Math.round(Math.random()*100);
+                data.pExito = Math.round(Math.random()*100);
                 var newAtaque = new ataqueModel(data);
                 newAtaque.save(function (err, userCreated) {
                 if (err) {
