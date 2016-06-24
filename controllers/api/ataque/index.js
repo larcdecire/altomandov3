@@ -37,10 +37,10 @@ module.exports = function (router) {
 
         var data = req.body;
         
-        /*var IdObjMilitar = data.cod_objMilitar;
-        ObjMilitarModel.findOne({codigo: IdObjMilitar}, function (err) {
+        var codigo = data.cod_objMilitar;
+        ObjMilitarModel.findOne({codigo: codigo}, function (err) {
             if (err) {
-                return res.status(500).json({error: err}).end();
+                return res.status(500).json({error: 'error al encontrar el codigo'}).end();
             }
             
             var newAtaque = new ataqueModel(data);
@@ -52,7 +52,7 @@ module.exports = function (router) {
             res.status(201).json(userCreated).end();
             });
             
-        });*/
+        });
 
         
 
