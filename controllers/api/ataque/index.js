@@ -38,19 +38,22 @@ module.exports = function (router) {
         var data = req.body;
         
         var codigo = data.cod_objMilitar;
-        ObjMilitarModel.findOne({codigo: codigo}, function (err) {
+        ObjMilitarModel.findOne({codigo: codigo}, function (err, ObjetivoToPost) {
             if (err) {
                 return res.status(500).json({error: 'error al encontrar el codigo'}).end();
             }
             
-            var newAtaque = new ataqueModel(data);
-            data.p_exito = Math.round(Math.random()*100);
-            newAtaque.save(function (err, userCreated) {
-            if (err) {
-                return res.status(500).json({error: err}).end();
+            if (ObjetivoToPost){
+                
+                var newAtaque = new ataqueModel(data);
+                data.p_exito = Math.round(Math.random()*100);
+                newAtaque.save(function (err, userCreated) {
+                if (err) {
+                    return res.status(500).json({error: err}).end();
+                }
+                res.status(201).json(userCreated).end();
+                });   
             }
-            res.status(201).json(userCreated).end();
-            });
             
         });
 
