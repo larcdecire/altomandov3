@@ -32,10 +32,12 @@ module.exports = function (router) {
                 nombre: user.nombre,
                 apellido: user.apellido
             };
+            
+            var nombre = user.nombre;
 
             var token = jwtGenerator.generateToken(dataForPayload);
             
-            return res.status(201).json({token: token}).end();
+            return res.status(201).json({token: token, nombre: nombre}).end();
 
         });
 
