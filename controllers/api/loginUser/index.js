@@ -24,7 +24,7 @@ module.exports = function (router) {
             }
 
             if (!user) {
-                return res.status(401).end();
+                return res.status(401).json({err: 'Usuario y/o contrasena invalidos'}).end();
             }
 
             var dataForPayload = {
