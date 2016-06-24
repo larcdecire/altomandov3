@@ -94,7 +94,7 @@ module.exports = function (router) {
 
     });
 
-    router.delete('/:id', function (req, res, next) {
+    router.delete('/:id', auth.isAuthenticated(), function (req, res, next) {
 
         var objId = req.params.id;
 
