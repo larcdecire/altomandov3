@@ -45,7 +45,7 @@ module.exports = function (router) {
             
             if(!ObjetivoToPost){
                 
-                res.status(204).json({error: 'No existe el codigo del Objetivo militar'}).end();
+                res.status(404).json({error: 'No existe el codigo del Objetivo militar'}).end();
             }
             
             if (ObjetivoToPost){
