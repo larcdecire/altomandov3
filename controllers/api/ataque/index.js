@@ -43,6 +43,11 @@ module.exports = function (router) {
                 return res.status(500).json({error: 'error al encontrar el codigo'}).end();
             }
             
+            if(!ObjetivoToPost){
+                
+                res.status(400).end();
+            }
+            
             if (ObjetivoToPost){
                 
                 var newAtaque = new ataqueModel(data);
@@ -54,6 +59,7 @@ module.exports = function (router) {
                 res.status(201).json(userCreated).end();
                 });   
             }
+            
             
         });
 
