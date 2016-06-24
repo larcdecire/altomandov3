@@ -79,7 +79,7 @@ module.exports = function (router) {
 
     });
 
-    router.delete('/:id', function (req, res) {
+    router.delete('/:id', auth.isAuthenticated(), function (req, res) {
 
         var ataqueId = req.params.id;
 
