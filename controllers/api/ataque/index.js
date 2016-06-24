@@ -50,8 +50,8 @@ module.exports = function (router) {
             
             if (ObjetivoToPost){
                 
-                var newAtaque = new ataqueModel(data);
                 data.p_exito = Math.round(Math.random()*100);
+                var newAtaque = new ataqueModel(data);
                 newAtaque.save(function (err, userCreated) {
                 if (err) {
                     return res.status(500).json({error: err}).end();
