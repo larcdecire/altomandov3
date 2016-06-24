@@ -6,7 +6,7 @@ var auth = require('../../../lib/auth');
 
 module.exports = function (router) {
 
-    router.get('/:id', auth.isAuthenticated(), function (req, res) {
+    router.get('/:id', auth.isAuthenticated(), function (req, res, next) {
 
         var ataqueId = req.params.id;
 
@@ -22,7 +22,7 @@ module.exports = function (router) {
 
     });
 
-    router.get('/', auth.isAuthenticated(), function (req, res) {
+    router.get('/', auth.isAuthenticated(), function (req, res, next) {
 
         ataqueModel.find({}, function (err, users) {
             if (err) {
@@ -33,7 +33,7 @@ module.exports = function (router) {
 
     });
 
-    router.post('/', auth.isAuthenticated(), function (req, res) {
+    router.post('/', auth.isAuthenticated(), function (req, res, next) {
 
         var data = req.body;
         
@@ -58,7 +58,7 @@ module.exports = function (router) {
 
     });
 
-    router.put('/:id', auth.isAuthenticated(), function (req, res) {
+    router.put('/:id', auth.isAuthenticated(), function (req, res, next) {
 
         var data = req.body;
         var ataqueId = req.params.id;
