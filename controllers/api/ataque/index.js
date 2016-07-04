@@ -54,10 +54,15 @@ module.exports = function (router) {
                 
                 if(data.pExito >= 80){
                     
+                    data.mensaje = 'Ataque Perfecto';
+                    
                 } else if(data.pExito >= 40 && data.pExito < 80){
+                    
+                    data.mensaje = 'Ataque medio';
                     
                 } else {
                     
+                    data.mensaje = 'Ataque fallido';
                 }
                 var newAtaque = new ataqueModel(data);
                 newAtaque.save(function (err, userCreated) {
