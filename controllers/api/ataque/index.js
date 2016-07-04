@@ -51,6 +51,14 @@ module.exports = function (router) {
             if (ObjetivoToPost){
                 
                 data.pExito = Math.round(Math.random()*100);
+                
+                if(data.pExito >= 80){
+                    
+                } else if(data.pExito >= 40 && data.pExito < 80){
+                    
+                } else {
+                    
+                }
                 var newAtaque = new ataqueModel(data);
                 newAtaque.save(function (err, userCreated) {
                 if (err) {
