@@ -7,7 +7,7 @@ node_js:
 
 env:
   global:
-    - OPENSHIFT_REPO=ssh://5744c3980c1e669a680000bd@altomandov3-lbarreraabarca.rhcloud.com/~/git/altomandov3.git/
+    - OPENSHIFT_REPO=ssh://57af901f89f5cf8a24000122@mksw-lbarreraabarca.rhcloud.com/~/git/mksw.git/
     
 before_install:
   - git remote -v | grep ^openshift || git remote add -m master openshift $OPENSHIFT_REPO
